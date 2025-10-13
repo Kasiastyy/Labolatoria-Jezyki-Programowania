@@ -1,0 +1,3 @@
+Zadeklaruj strukturę klas reprezentujących zabawki wydające dźwięki. 
+Napisz program, który wygeneruje losowo listę zabawek, a następnie będzie w pętli przeglądał tę listę, wypisując na ekranie "dźwięk" wydawany przez zawarte na niej zabawki. 
+Kod, który powstanie, powinien być kodem modułowych (powinien zawierać module-info.java).
