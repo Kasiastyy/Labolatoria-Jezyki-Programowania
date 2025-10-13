@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="CopilotDiffPersistence">
+    <option name="pendingDiffs">
+      <map>
+        <entry key="$PROJECT_DIR$/src/main/java/org/example/Main.java">
+          <value>
+            <PendingDiffInfo>
+              <option name="filePath" value="$PROJECT_DIR$/src/main/java/org/example/Main.java" />
+              <option name="originalContent" value="package org.example;&#10;import static org.example.DataManagement.DataGenerator.pierscienieGenerator;&#10;import static org.example.DataManagement.DataGenerator.plytaGenerator;&#10;&#10;public class Main {&#10;    public static void main(String[] args) {&#10;        plytaGenerator(10);&#10;        pierscienieGenerator(10);&#10;    }&#10;}" />
+              <option name="updatedContent" value="package org.example;&#10;import static org.example.DataManagement.DataGenerator.pierscienieGenerator;&#10;import static org.example.DataManagement.DataGenerator.plytaGenerator;&#10;&#10;public class Main {&#10;    public static void main(String[] args) {&#10;        plytaGenerator(10);&#10;        pierscienieGenerator(10);&#10;    }&#10;}" />
+            </PendingDiffInfo>
+          </value>
+        </entry>
+      </map>
+    </option>
+  </component>
+</project>
