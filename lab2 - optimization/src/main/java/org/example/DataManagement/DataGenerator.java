@@ -7,16 +7,16 @@ import java.util.Random;
 public class DataGenerator {
     static Random random = new Random();
 
-    public static void plytaGenerator(int count) {
+    public static void plytaGenerator(int count, String filePath) {
         try{
-            File myObj = new File("data/plyta.txt");
+            File myObj = new File(filePath);
             if(myObj.createNewFile()){
                 System.out.println("File created: " + myObj.getName());
             } else {
                 System.out.println("File already exists.");
             }
 
-            FileWriter myWriter = new FileWriter("data/plyta.txt");
+            FileWriter myWriter = new FileWriter(filePath);
             myWriter.write("# nr otworu, promien");
 
             for(int i=0; i<=count; i++){
@@ -31,16 +31,16 @@ public class DataGenerator {
         }
     }
 
-    public static void pierscienieGenerator(int count) {
+    public static void pierscienieGenerator(int count, String filePath) {
         try{
-            File myObj = new File("data/pierscienie.txt");
+            File myObj = new File(filePath);
             if(myObj.createNewFile()){
                 System.out.println("File created: " + myObj.getName());
             } else {
                 System.out.println("File already exists.");
             }
 
-            FileWriter myWriter = new FileWriter("data/pierscienie.txt");
+            FileWriter myWriter = new FileWriter(filePath);
             myWriter.write("# nr pierscienia, promien zewnetrzy, promien wewnetrzny, wysokosc");
 
             for(int i=0; i<=count; i++){
