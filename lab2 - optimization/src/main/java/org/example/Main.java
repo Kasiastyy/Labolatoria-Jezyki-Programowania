@@ -11,11 +11,11 @@ public class Main {
         System.out.println("Plyty directory");
         String directory2 = ChooseDirectory.setDirectoryFromUser();
 
-        DataGenerator.pierscienieGenerator(10, directory1);
-        DataGenerator.plytaGenerator(10, directory2);
+        DataGenerator.pierscienieGenerator(8, directory1);
+        DataGenerator.plytaGenerator(4, directory2);
 
-        int[][] holes = DataReader.readFile(directory1);
-        int[][] rings = DataReader.readFile(directory2);
+        int[][] rings = DataReader.readFile(directory1);
+        int[][] holes = DataReader.readFile(directory2);
 
         // Wypisywanie holes
         System.out.println("Zawartość holes:");

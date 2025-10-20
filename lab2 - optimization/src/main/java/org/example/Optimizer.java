@@ -14,6 +14,24 @@ public class Optimizer {
                 """);
 
         int choice = scanner.nextInt();
+        switch(choice) {
+            case 1:
+                System.out.println("Wybrano optymalizację: min S, min C");
+
+                break;
+            case 2:
+                System.out.println("Wybrano optymalizację: min S, max C");
+                break;
+            case 3:
+                System.out.println("Wybrano optymalizację: max S, min C");
+                break;
+            case 4:
+                System.out.println("Wybrano optymalizację: max S, max C");
+                break;
+            default:
+                System.out.println("Nieprawidłowy wybór. Proszę wybrać ponownie.");
+                return;
+        }
         String[][] result;
         //Setup
 
