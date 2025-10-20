@@ -1,0 +1,28 @@
+Założenia:
+
+W pewnej płycie znajduje się [n] okrągłych otworów o znanych promieniach.
+Istnieje [k] pierścieni, z których każdy można opisać trzema atrybutami: promieniem zewnętrznym, promieniem wewnętrznym, wysokością (pierścień, którego promień wewnętrzny jest zerowy, to koło).
+Zadanie:
+
+Należy zaślepić otwory, ustawiając nad nimi stosy pierścieni.
+Podczas budowy stosów należy minimalizować lub maksymalizować dwie wartości: sumę wysokości stosów (S - sum of heights) oraz liczbę wykorzystanych pierścieni (C - count).
+Proszę zauważyć, że jest to problem, w którym funkcja kryterialna może przyjąć każdą z czterech postaci: (min S, min C), (min S, max C), (max S, min C), (max S, max C). Liczba rozwiązań w każdym z przypadków zależeć będzie od tego, co znajdzie sie w danych wejściowych.
+
+
+Implementacja:
+
+Dane opisująca problem do rozwiązania przez danego uczestnika konkursu powinny być zapisane w dwóch plikach:
+plyta.txt - o zawartości:
+# nr otworu, promien
+1, 15
+2, 30
+...
+pierscienie.txt - o zawartości:
+# nr pierscienia, promien zewnetrzy, promien wewnetrzny, wysokosc
+1, 13, 10, 3
+2, 15, 9, 4
+...
+
+
+Typ kryterium oraz pliki z danymi wejściowymi można przekazać do programu w linii komend lub poprzez interakcje z użytkownikiem po uruchomieniu programu.
+Dane wejściowe należy wygenerować samemu. Dane te powinny być nietrywialne (co do złożoności oraz liczności).
