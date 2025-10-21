@@ -19,7 +19,7 @@ public class DataGenerator {
             FileWriter myWriter = new FileWriter(filePath);
             myWriter.write("# nr otworu, promien");
 
-            for(int i=0; i<=count; i++){
+            for(int i=0; i<count; i++){
                 myWriter.write("\n" + i + ", " + (random.nextInt(8)));
             }
             myWriter.close();
@@ -43,8 +43,8 @@ public class DataGenerator {
             FileWriter myWriter = new FileWriter(filePath);
             myWriter.write("# nr pierscienia, promien zewnetrzy, promien wewnetrzny, wysokosc");
 
-            for(int i=0; i<=count; i++){
-                int r1 = random.nextInt(5);
+            for(int i=0; i<count; i++){
+                int r1 = random.nextInt(5)+1;
                 int r2 = random.nextInt(5);
                 int height = random.nextInt(5);
                 myWriter.write("\n" + i + ", " + r1 + ", " + r2 + ", " + height);
