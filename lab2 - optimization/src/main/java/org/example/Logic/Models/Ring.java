@@ -1,4 +1,4 @@
-package org.example.Logic;
+package org.example.Logic.Models;
 
 import java.util.List;
 import java.util.ArrayList;
@@ -32,11 +32,6 @@ public class Ring {
         return height;
     }
 
-    @Override
-    public String toString() {
-        return "Ring{id=" + id + ", outerR=" + outerRadius + ", innerR=" + innerRadius + ", h=" + height + '}';
-    }
-
     public static List<Ring> toRingList(int[][] rings) {
         List<Ring> list = new ArrayList<>();
         if (rings == null) return list;
@@ -50,5 +45,26 @@ public class Ring {
             list.add(new Ring(id, outer, inner, height));
         }
         return list;
+    }
+
+    public boolean fitsOnHole(Hole hole) {
+        if (hole == null) return false;
+        return this.outerRadius >= hole.getRadius() && this.innerRadius < hole.getRadius();
+    }
+
+
+    public boolean fitsOnRing(Ring lowerRing) {
+        if (lowerRing == null) return false;
+
+        boolean condition1 = this.outerRadius <= lowerRing.outerRadius;
+        boolean condition2 = this.outerRadius > lowerRing.innerRadius;
+        boolean condition3 = this.innerRadius < lowerRing.outerRadius;
+
+        return condition1 && condition2 && condition3;
+    }
+
+    @Override
+    public String toString() {
+        return "Ring{id=" + id + ", outer=" + outerRadius + ", inner=" + innerRadius + ", height=" + height + "}";
     }
 }

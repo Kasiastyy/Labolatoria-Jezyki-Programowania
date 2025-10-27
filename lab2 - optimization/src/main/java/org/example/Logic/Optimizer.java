@@ -1,19 +1,20 @@
 package org.example.Logic;
 
+import org.example.Logic.Models.Hole;
+import org.example.Logic.Models.Ring;
+import org.example.Logic.strategies.*;
+
 import java.util.List;
 
 public class Optimizer {
-    public static void Optimization(int[][] holes, int[][] rings) {
 
-        List<Hole> holeList = Hole.toHoleList(holes);
-        List<Ring> ringList = Ring.toRingList(rings);
-
-        int choice = Selection.selectOptimizationType();
-        if (choice == -1) {
-            return;
+    public static void optimize(int choice, List<Hole> holes, List<Ring> rings) {
+        switch (choice) {
+            case 1 -> new MinS_MinC().run(holes, rings);
+            case 2 -> new MinS_MaxC().run(holes, rings);
+            case 3 -> new MaxS_MinC().run(holes, rings);
+            case 4 -> new MaxS_MaxC().run(holes, rings);
+            default -> System.out.println("Invalid optimization type.");
         }
-
-        System.out.println("Liczba otworów: " + holeList.size());
-        System.out.println("Liczba pierścieni: " + ringList.size());
     }
 }
