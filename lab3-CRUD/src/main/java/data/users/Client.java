@@ -1,5 +1,6 @@
 package data.users;
 
+import data.models.Person;
 import enums.Role;
 
 public class Client extends Person {

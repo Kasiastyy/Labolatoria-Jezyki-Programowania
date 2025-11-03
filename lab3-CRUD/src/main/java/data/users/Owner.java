@@ -1,4 +1,5 @@
 package data.users;
+import data.models.Person;
 import enums.Role;
 
 public class Owner extends Person {

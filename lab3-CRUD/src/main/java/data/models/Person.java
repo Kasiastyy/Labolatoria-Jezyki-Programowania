@@ -1,4 +1,4 @@
-package data.users;
+package data.models;
 import enums.Role;
 
 public class Person {
@@ -18,5 +18,11 @@ public class Person {
     public int getSalonId() {return salonId;}
     public String getName() {return name;}
     public Role getRole() {return role;}
+
+    public int setId(int id) {return this.id = id;}
+    public int setSalonId(int salonId) {return this.salonId = salonId;}
+    public String setName(String name) {return this.name = name;}
+    public Role setRole(Role role) {return this.role = role;}
 }
+
 
