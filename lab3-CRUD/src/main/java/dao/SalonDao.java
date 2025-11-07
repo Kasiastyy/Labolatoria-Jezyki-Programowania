@@ -6,5 +6,4 @@ import java.util.List;
 
 public interface SalonDao extends CrudDao<Salon> {
     Optional<Salon> getByOwnerId(int ownerId);
-    List<Salon> getAllByOwnerId(int ownerId);
 }
