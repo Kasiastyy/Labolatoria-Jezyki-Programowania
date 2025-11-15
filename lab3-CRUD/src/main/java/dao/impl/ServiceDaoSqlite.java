@@ -13,13 +13,14 @@ public class ServiceDaoSqlite implements ServiceDao {
 
     @Override
     public void add(Service service) {
-        String sql = "INSERT INTO service (salon_id, name, price) VALUES (?, ?, ?)";
+        String sql = "INSERT INTO service (salon_id, name, price, duration) VALUES (?, ?, ?, ?)";
         try (Connection conn = DatabaseConnection.getConnection();
              PreparedStatement stmt = conn.prepareStatement(sql)) {
 
             stmt.setInt(1, service.getSalonId());
             stmt.setString(2, service.getName());
             stmt.setDouble(3, service.getPrice());
+            stmt.setDouble(4, service.getDuration());
             stmt.executeUpdate();
 
         } catch (SQLException e) {
@@ -41,7 +42,8 @@ public class ServiceDaoSqlite implements ServiceDao {
                         rs.getInt("id"),
                         rs.getInt("salon_id"),
                         rs.getString("name"),
-                        rs.getDouble("price")
+                        rs.getDouble("price"),
+                        rs.getDouble("duration")
                 ));
             }
 
@@ -64,7 +66,8 @@ public class ServiceDaoSqlite implements ServiceDao {
                         rs.getInt("id"),
                         rs.getInt("salon_id"),
                         rs.getString("name"),
-                        rs.getDouble("price")
+                        rs.getDouble("price"),
+                        rs.getDouble("duration")
                 ));
             }
 
@@ -76,13 +79,15 @@ public class ServiceDaoSqlite implements ServiceDao {
 
     @Override
     public void update(Service service) {
-        String sql = "UPDATE service SET name = ?, price = ? WHERE id = ?";
+        String sql = "UPDATE service SET salon_id = ?, name = ?, price = ?, duration = ? WHERE id = ?";
         try (Connection conn = DatabaseConnection.getConnection();
              PreparedStatement stmt = conn.prepareStatement(sql)) {
 
-            stmt.setString(1, service.getName());
-            stmt.setDouble(2, service.getPrice());
-            stmt.setInt(3, service.getId());
+            stmt.setInt(1, service.getSalonId());
+            stmt.setString(2, service.getName());
+            stmt.setDouble(3, service.getPrice());
+            stmt.setDouble(4, service.getDuration());
+            stmt.setInt(5, service.getId());
             stmt.executeUpdate();
 
         } catch (SQLException e) {
@@ -120,7 +125,8 @@ public class ServiceDaoSqlite implements ServiceDao {
                         rs.getInt("id"),
                         rs.getInt("salon_id"),
                         rs.getString("name"),
-                        rs.getDouble("price")
+                        rs.getDouble("price"),
+                        rs.getDouble("duration")
                 ));
             }
 

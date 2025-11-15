@@ -55,7 +55,7 @@ public class PersonDaoSqlite implements PersonDao {
 
     @Override
     public void add(Person person) {
-        String sql = "INSERT INTO persons (salon_id, name, role) VALUES (?, ?, ?)";
+        String sql = "INSERT INTO person (salon_id, name, role) VALUES (?, ?, ?)";
         try (Connection conn = DatabaseConnection.getConnection();
              PreparedStatement stmt = conn.prepareStatement(sql)) {
 
@@ -71,9 +71,9 @@ public class PersonDaoSqlite implements PersonDao {
 
     @Override
     public Optional<Person> getById(int id) {
-        String sql = "SELECT * FROM persons WHERE id = ?";
+        String sql = "SELECT * FROM person WHERE id = ?";
         try (Connection conn = DatabaseConnection.getConnection();
-             PreparedStatement stmt = conn.prepareStatement("SELECT * FROM persons WHERE id = ?")) {
+             PreparedStatement stmt = conn.prepareStatement(sql)) {
 
             stmt.setInt(1, id);
             ResultSet rs = stmt.executeQuery();
@@ -91,7 +91,7 @@ public class PersonDaoSqlite implements PersonDao {
     @Override
     public List<Person> getAll() {
         List<Person> list = new ArrayList<>();
-        String sql = "SELECT * FROM persons";
+        String sql = "SELECT * FROM person";
         try (Connection conn = DatabaseConnection.getConnection();
              PreparedStatement stmt = conn.prepareStatement(sql)) {
              ResultSet rs = stmt.executeQuery();
@@ -107,7 +107,7 @@ public class PersonDaoSqlite implements PersonDao {
 
     @Override
     public void update(Person item) {
-        String sql = "UPDATE persons SET salon_id = ?, name = ?, role = ? WHERE id = ?";
+        String sql = "UPDATE person SET salon_id = ?, name = ?, role = ? WHERE id = ?";
         try (Connection conn = DatabaseConnection.getConnection();
              PreparedStatement stmt = conn.prepareStatement(sql)) {
             stmt.setInt(1, item.getSalonId());
@@ -122,13 +122,38 @@ public class PersonDaoSqlite implements PersonDao {
 
     @Override
     public void delete(int id) {
-        String sql = "DELETE FROM persons WHERE id = ?";
+        String sql = "DELETE FROM person WHERE id = ?";
         try (Connection conn = DatabaseConnection.getConnection();
              PreparedStatement stmt = conn.prepareStatement(sql)) {
             stmt.setInt(1, id);
             stmt.executeUpdate();
         } catch (SQLException e) {
             System.err.println("Error deleting person: " + e.getMessage());
+        }
+    }
+
+    @Override
+    public void assignToSalon(int personId, int salonId) {
+        String sql = "UPDATE person SET salon_id = ? WHERE id = ?";
+        try (Connection conn = DatabaseConnection.getConnection();
+             PreparedStatement stmt = conn.prepareStatement(sql)) {
+            stmt.setInt(1, salonId);
+            stmt.setInt(2, personId);
+            stmt.executeUpdate();
+        } catch (SQLException e) {
+            System.err.println("Error assigning person to salon: " + e.getMessage());
+        }
+    }
+
+    @Override
+    public void removeFromSalon(int personId) {
+        String sql = "UPDATE person SET salon_id = NULL WHERE id = ?";
+        try (Connection conn = DatabaseConnection.getConnection();
+             PreparedStatement stmt = conn.prepareStatement(sql)) {
+            stmt.setInt(1, personId);
+            stmt.executeUpdate();
+        } catch (SQLException e) {
+            System.err.println("Error removing person from salon: " + e.getMessage());
         }
     }
 

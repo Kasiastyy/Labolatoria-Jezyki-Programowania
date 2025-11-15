@@ -16,4 +16,5 @@ public interface ReservationDao extends CrudDao<Reservation> {
     void markAsCompleted(int reservationId);
     void markAsPaid(int reservationId);
     void cancelReservation(int reservationId);
+    void markAsSubmitted(int reservationId);
 }

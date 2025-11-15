@@ -4,5 +4,6 @@ public enum ReservationStatus {
         SUBMITTED,
         STARTED,
         ENDED,
-        PAID
+        PAID,
+        CANCELED
 }

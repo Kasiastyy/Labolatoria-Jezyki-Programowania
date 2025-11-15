@@ -10,17 +10,15 @@ public class DatabaseInitializer {
         try (Connection conn = DatabaseConnection.getConnection();
              Statement stmt = conn.createStatement()) {
 
-            // Tabela salonów
             stmt.execute("""
                 CREATE TABLE IF NOT EXISTS salon (
                     id INTEGER PRIMARY KEY AUTOINCREMENT,
                     name TEXT NOT NULL,
                     owner_id INTEGER NOT NULL,
-                    chairs_count INTEGER NOT NULL
+                    number_of_employees INTEGER NOT NULL
                 );
             """);
 
-            // Tabela osób
             stmt.execute("""
                 CREATE TABLE IF NOT EXISTS person (
                     id INTEGER PRIMARY KEY AUTOINCREMENT,
@@ -30,28 +28,29 @@ public class DatabaseInitializer {
                 );
             """);
 
-            // Tabela usług
             stmt.execute("""
                 CREATE TABLE IF NOT EXISTS service (
                     id INTEGER PRIMARY KEY AUTOINCREMENT,
                     salon_id INTEGER NOT NULL,
                     name TEXT NOT NULL,
-                    price REAL NOT NULL
+                    price REAL NOT NULL,
+                    duration REAL NOT NULL
                 );
             """);
 
-            // Tabela rezerwacji
             stmt.execute("""
                 CREATE TABLE IF NOT EXISTS reservation (
-                    id INTEGER PRIMARY KEY AUTOINCREMENT,
-                    salon_id INTEGER NOT NULL,
-                    service_id INTEGER NOT NULL,
-                    employee_id INTEGER,
-                    client_id INTEGER,
-                    date TEXT NOT NULL,
-                    status TEXT NOT NULL
+                id INTEGER PRIMARY KEY AUTOINCREMENT,
+                salon_id INTEGER NOT NULL,
+                service_id INTEGER NOT NULL,
+                employee_id INTEGER,
+                client_id INTEGER,
+                start_hour REAL NOT NULL,
+                duration REAL NOT NULL,
+                status TEXT NOT NULL
                 );
             """);
+
 
             System.out.println("✅ Database initialized successfully.");
 
