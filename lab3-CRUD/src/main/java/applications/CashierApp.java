@@ -9,6 +9,7 @@ import data.models.Reservation;
 import enums.Role;
 import services.ReservationService;
 import services.SalonService;
+import utils.TimeSimulator;
 
 import java.util.List;
 import java.util.Scanner;
@@ -60,6 +61,7 @@ public class CashierApp {
     public void run() {
         while (true) {
             System.out.println("\n=== CASHIER PANEL ===");
+            System.out.println("Current time: " + TimeSimulator.getCurrentTime());
             System.out.println("1. View all reservations in salon");
             System.out.println("2. View completed and unpaid reservations");
             System.out.println("3. Mark reservation as paid");

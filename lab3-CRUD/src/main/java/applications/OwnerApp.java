@@ -14,6 +14,7 @@ import exceptions.SalonException;
 import services.OwnerService;
 import services.ReservationService;
 import services.SalonService;
+import utils.TimeSimulator;
 
 import java.util.List;
 import java.util.Scanner;
@@ -22,7 +23,7 @@ public class OwnerApp {
 
     private final OwnerService ownerService;
     private final ReservationService reservationService;
-    private final SalonService salonService;
+    private final TimeSimulator timeSimulator;
     private final Person loggedOwner;
     private final Scanner scanner = new Scanner(System.in);
 
@@ -32,7 +33,7 @@ public class OwnerApp {
                     Person loggedOwner) {
         this.ownerService = ownerService;
         this.reservationService = reservationService;
-        this.salonService = salonService;
+        this.timeSimulator = new TimeSimulator();
         this.loggedOwner = loggedOwner;
     }
 
@@ -81,15 +82,18 @@ public class OwnerApp {
 
         while (true) {
             System.out.println("\n=== OWNER PANEL ===");
+            System.out.println("Current time: " + TimeSimulator.getCurrentTime());
             System.out.println("1. List salons");
             System.out.println("2. List employees in salon");
             System.out.println("3. Hire employee");
             System.out.println("4. Fire employee");
-            System.out.println("5. List services");
-            System.out.println("6. Add service");
-            System.out.println("7. Change service price");
-            System.out.println("8. Delete service");
-            System.out.println("9. List reservations in salon");
+            System.out.println("5. Hire cashier");
+            System.out.println("6. List services");
+            System.out.println("7. Add service");
+            System.out.println("8. Change service price");
+            System.out.println("9. Delete service");
+            System.out.println("10. List reservations in salon");
+            System.out.println("11. New day");
             System.out.println("0. Back to main menu");
             System.out.print("Choice: ");
 
@@ -100,11 +104,13 @@ public class OwnerApp {
                 case "2" -> showEmployees();
                 case "3" -> hireEmployee();
                 case "4" -> fireEmployee();
-                case "5" -> showServices();
-                case "6" -> addService();
-                case "7" -> updateServicePrice();
-                case "8" -> deleteService();
-                case "9" -> showReservations();
+                case "5" -> hireCashier();
+                case "6" -> showServices();
+                case "7" -> addService();
+                case "8" -> updateServicePrice();
+                case "9" -> deleteService();
+                case "10" -> showReservations();
+                case "11" -> TimeSimulator.newDay();
                 case "0" -> { return; }
                 default -> System.out.println("Invalid option.");
             }
@@ -181,6 +187,24 @@ public class OwnerApp {
             Person newEmployee = new Person(0, salonId, name, Role.EMPLOYEE);
 
             ownerService.hireEmployee(loggedOwner, newEmployee, salonId);
+            System.out.println("Employee hired.");
+
+        } catch (SalonException e) {
+            System.out.println(e.getMessage());
+        }
+    }
+
+    private void hireCashier() {
+        try {
+            int salonId = chooseSalon();
+            if (salonId < 0) return;
+
+            System.out.print("Employee name: ");
+            String name = scanner.nextLine();
+
+            Person newEmployee = new Person(0, salonId, name, Role.CASHIER);
+
+            ownerService.hireCashier(loggedOwner, newEmployee, salonId);
             System.out.println("Employee hired.");
 
         } catch (SalonException e) {
@@ -300,4 +324,5 @@ public class OwnerApp {
             System.out.println(e.getMessage());
         }
     }
+
 }

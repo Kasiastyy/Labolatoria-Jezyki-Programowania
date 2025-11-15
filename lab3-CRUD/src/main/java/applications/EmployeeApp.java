@@ -9,6 +9,7 @@ import data.models.Reservation;
 import enums.Role;
 import services.ReservationService;
 import services.SalonService;
+import utils.TimeSimulator;
 
 import java.util.List;
 import java.util.Scanner;
@@ -60,7 +61,8 @@ public class EmployeeApp {
     public void run() {
         while (true) {
             System.out.println("\n=== EMPLOYEE PANEL ===");
-            System.out.println("1. View my reservations");
+            System.out.println("Current time: " + TimeSimulator.getCurrentTime());
+            System.out.println("1. View reservations");
             System.out.println("2. Start reservation");
             System.out.println("3. Complete reservation");
             System.out.println("0. Back to main menu");
@@ -117,16 +119,18 @@ public class EmployeeApp {
     private void completeReservation() {
         System.out.print("Reservation ID to complete: ");
         int id;
-        try {
-            id = Integer.parseInt(scanner.nextLine());
-        } catch (Exception e) {
-            System.out.println("Invalid ID.");
-            return;
-        }
 
         try {
+            id = Integer.parseInt(scanner.nextLine());
+            Reservation r = reservationService.getReservationById(id);
+
+            double duration = reservationService.getServiceDuration(r.getServiceId());
+            TimeSimulator.advanceTime(duration);
+
             reservationService.completeReservation(id);
+
             System.out.println("Reservation completed.");
+
         } catch (Exception e) {
             System.out.println(e.getMessage());
         }

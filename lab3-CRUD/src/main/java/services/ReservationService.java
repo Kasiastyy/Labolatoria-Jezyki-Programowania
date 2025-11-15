@@ -75,6 +75,17 @@ public class ReservationService {
         return reservation;
     }
 
+    public double getServiceDuration(int serviceId) {
+        return serviceDao.getById(serviceId)
+                .orElseThrow(() -> new IllegalArgumentException("Service not found"))
+                .getDuration();
+    }
+
+    public Reservation getReservationById(int id) {
+        return reservationDao.getById(id)
+                .orElseThrow(() -> new IllegalArgumentException("Reservation not found"));
+    }
+
 
     public void startReservation(int reservationId) {
         Reservation reservation = reservationDao.getById(reservationId)

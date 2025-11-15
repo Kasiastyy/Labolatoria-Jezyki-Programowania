@@ -9,6 +9,7 @@ import applications.EmployeeApp;
 import applications.OwnerApp;
 import exceptions.DatabaseAccessException;
 import utils.DatabaseInitializer;
+import utils.TimeSimulator;
 
 public class Main {
     public static void main(String[] args) throws DatabaseAccessException {
@@ -20,6 +21,7 @@ public class Main {
 
         while (true) {
             System.out.println("\n=== MAIN MENU ===");
+            System.out.println("Currenct time: " + TimeSimulator.getCurrentTime());
             System.out.println("1. Cashier Application");
             System.out.println("2. Client Application");
             System.out.println("3. Employee Application");
@@ -44,4 +46,5 @@ public class Main {
             }
         }
     }
+
 }

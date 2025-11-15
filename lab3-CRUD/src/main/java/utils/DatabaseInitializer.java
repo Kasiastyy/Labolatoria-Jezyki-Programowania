@@ -51,11 +51,25 @@ public class DatabaseInitializer {
                 );
             """);
 
+            stmt.execute("""
+                CREATE TABLE IF NOT EXISTS time_state (
+                id INTEGER PRIMARY KEY AUTOINCREMENT,
+                time REAL NOT NULL
+                );
+            """);
+
+            stmt.execute("""
+                INSERT INTO time_state (id, time)
+                SELECT 1, 10.0
+                WHERE NOT EXISTS (SELECT 1 FROM time_state WHERE id = 1);
+            """);
+
 
             System.out.println("✅ Database initialized successfully.");
 
         } catch (SQLException e) {
             System.err.println("❌ Database initialization failed: " + e.getMessage());
         }
+
     }
 }

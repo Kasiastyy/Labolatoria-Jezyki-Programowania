@@ -54,6 +54,38 @@ public class OwnerService {
         }
     }
 
+
+    public void hireCashier(Person owner, Person newEmployee, int salonId)
+            throws UnauthorizedActionException, InvalidOperationException, DatabaseAccessException {
+
+        if (owner.getRole() != Role.OWNER) {
+            throw new UnauthorizedActionException("Only owner can hire workers.");
+        }
+
+        try {
+            Optional<Salon> salon = salonDao.getById(salonId);
+            if (salon.isEmpty()) {
+                throw new InvalidOperationException("Salon does not exist.");
+            }
+
+            List<Person> employees = personDao.getBySalonId(salonId);
+            boolean exists = employees.stream().anyMatch(p -> p.getId() == newEmployee.getId());
+            if (exists) {
+                throw new InvalidOperationException("That worker is already working in this salon");
+            }
+
+            newEmployee.setSalonId(salonId);
+            newEmployee.setRole(Role.CASHIER);
+            personDao.add(newEmployee);
+
+        } catch (SalonException e) {
+            throw e;
+        } catch (Exception e) {
+            throw new DatabaseAccessException("There was an error while hiring worker", e);
+        }
+    }
+
+
     public void fireEmployee(Person owner, int employeeId, int salonId)
             throws UnauthorizedActionException, InvalidOperationException, DatabaseAccessException {
 
@@ -77,6 +109,32 @@ public class OwnerService {
             throw new DatabaseAccessException("There was an error while hiring worker", e);
         }
     }
+
+
+    public void fireCashier(Person owner, int employeeId, int salonId)
+            throws UnauthorizedActionException, InvalidOperationException, DatabaseAccessException {
+
+        if (owner.getRole() != Role.OWNER) {
+            throw new UnauthorizedActionException("Only owner can hire workers.");
+        }
+
+        try {
+            List<Person> employees = personDao.getBySalonId(salonId);
+
+            Person employee = employees.stream()
+                    .filter(p -> p.getId() == employeeId)
+                    .findFirst()
+                    .orElseThrow(() -> new InvalidOperationException("There is no such worker in this salon."));
+
+            personDao.delete(employee.getId());
+
+        } catch (SalonException e) {
+            throw e;
+        } catch (Exception e) {
+            throw new DatabaseAccessException("There was an error while hiring worker", e);
+        }
+    }
+
 
     public List<Person> getEmployeesInSalon(int salonId) throws DatabaseAccessException {
         try {

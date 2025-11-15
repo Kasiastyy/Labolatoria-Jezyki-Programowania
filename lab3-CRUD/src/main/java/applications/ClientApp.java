@@ -12,6 +12,7 @@ import enums.Role;
 import exceptions.DatabaseAccessException;
 import services.ReservationService;
 import services.SalonService;
+import utils.TimeSimulator;
 
 import java.util.List;
 import java.util.Scanner;
@@ -21,6 +22,7 @@ public class ClientApp {
     private final ReservationService reservationService;
     private final SalonService salonService;
     private final Person loggedClient;
+    private final TimeSimulator timeSimulator;
     private final Scanner scanner = new Scanner(System.in);
 
     public ClientApp(ReservationService reservationService,
@@ -29,6 +31,7 @@ public class ClientApp {
         this.reservationService = reservationService;
         this.salonService = salonService;
         this.loggedClient = loggedClient;
+        this.timeSimulator = new TimeSimulator();
     }
 
     public static void start() throws DatabaseAccessException {
@@ -63,10 +66,12 @@ public class ClientApp {
     public void run() throws DatabaseAccessException {
         while (true) {
             System.out.println("\n=== CLIENT PANEL ===");
+            System.out.println("Current time: " + TimeSimulator.getCurrentTime());
             System.out.println("1. List services in salon");
             System.out.println("2. View my reservations");
             System.out.println("3. Create reservation");
             System.out.println("4. Cancel reservation");
+            System.out.println("5. Show time");
             System.out.println("0. Back to main menu");
             System.out.print("Choice: ");
 
@@ -77,6 +82,7 @@ public class ClientApp {
                 case "2" -> showReservations();
                 case "3" -> createReservation();
                 case "4" -> cancelReservation();
+                case "5" -> System.out.println("Current time: " + TimeSimulator.getCurrentTime());
                 case "0" -> { return; }
                 default -> System.out.println("Invalid option.");
             }
