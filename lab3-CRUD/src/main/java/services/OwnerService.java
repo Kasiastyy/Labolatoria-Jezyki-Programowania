@@ -8,7 +8,11 @@ import data.models.Salon;
 import data.models.Service;
 import enums.Role;
 import exceptions.*;
+import utils.DatabaseConnection;
 
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
 import java.util.List;
 import java.util.Optional;
 
@@ -51,6 +55,21 @@ public class OwnerService {
             throw e;
         } catch (Exception e) {
             throw new DatabaseAccessException("There was an error while hiring worker", e);
+        }
+    }
+
+    public double getSalonRevenue(int salonId) throws DatabaseAccessException {
+        String sql = "SELECT SUM(amount) FROM payments WHERE salon_id = ?";
+
+        try (Connection conn = DatabaseConnection.getConnection();
+             PreparedStatement stmt = conn.prepareStatement(sql)) {
+
+            stmt.setInt(1, salonId);
+            ResultSet rs = stmt.executeQuery();
+            return rs.next() ? rs.getDouble(1) : 0.0;
+
+        } catch (Exception e) {
+            throw new DatabaseAccessException("Failed to load salon revenue", e);
         }
     }
 

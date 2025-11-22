@@ -1,0 +1,85 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.chart.BarChart?>
+<?import javafx.scene.chart.CategoryAxis?>
+<?import javafx.scene.chart.NumberAxis?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+<BorderPane xmlns="http://javafx.com/javafx/21"
+            xmlns:fx="http://javafx.com/fxml/1"
+            fx:controller="org.gui.controller.MainViewController">
+
+    <top>
+        <VBox spacing="5.0" BorderPane.alignment="CENTER">
+            <children>
+                <Label text="TranStat – Liczba wejść/wyjść statków do/z portu (dzienna)"
+                       style="-fx-font-size: 16px; -fx-font-weight: bold;" />
+                <HBox spacing="10">
+                    <padding>
+                        <Insets top="10" right="10" bottom="10" left="10"/>
+                    </padding>
+                    <children>
+                        <Label text="Port:" />
+                        <ComboBox fx:id="portComboBox" prefWidth="200.0" />
+
+                        <Label text="Kierunek:" />
+                        <ComboBox fx:id="directionComboBox" prefWidth="150.0" />
+
+                        <Label text="Od daty:" />
+                        <DatePicker fx:id="fromDatePicker" />
+
+                        <Label text="Do daty:" />
+                        <DatePicker fx:id="toDatePicker" />
+
+                        <Button fx:id="fetchButton" text="Pobierz dane" />
+                    </children>
+                </HBox>
+            </children>
+        </VBox>
+    </top>
+
+    <center>
+        <TabPane BorderPane.alignment="CENTER">
+            <tabs>
+                <Tab text="Tabela">
+                    <content>
+                        <TableView fx:id="statsTable">
+                            <columns>
+                                <TableColumn fx:id="colDate" text="Data" prefWidth="140.0" />
+                                <TableColumn fx:id="colPort" text="Port" prefWidth="200.0" />
+                                <TableColumn fx:id="colDirection" text="Kierunek" prefWidth="200.0" />
+                                <TableColumn fx:id="colValue" text="Wartość" prefWidth="150.0" />
+                            </columns>
+                        </TableView>
+                    </content>
+                </Tab>
+                <Tab text="Wykres">
+                    <content>
+                        <BarChart fx:id="barChart">
+                            <xAxis>
+                                <CategoryAxis fx:id="chartXAxis" />
+                            </xAxis>
+                            <yAxis>
+                                <NumberAxis fx:id="chartYAxis" />
+                            </yAxis>
+                        </BarChart>
+                    </content>
+                </Tab>
+            </tabs>
+        </TabPane>
+    </center>
+
+    <bottom>
+        <HBox spacing="10" BorderPane.alignment="CENTER_LEFT">
+            <padding>
+                <Insets top="10" right="10" bottom="10" left="10"/>
+            </padding>
+            <children>
+                <Label text="Status:"/>
+                <Label fx:id="statusLabel" text="Gotowy." />
+            </children>
+        </HBox>
+    </bottom>
+</BorderPane>

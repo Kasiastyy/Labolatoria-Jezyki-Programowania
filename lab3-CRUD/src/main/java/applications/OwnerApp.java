@@ -93,7 +93,8 @@ public class OwnerApp {
             System.out.println("8. Change service price");
             System.out.println("9. Delete service");
             System.out.println("10. List reservations in salon");
-            System.out.println("11. New day");
+            System.out.println("11. Show Revenue");
+            System.out.println("12. New day");
             System.out.println("0. Back to main menu");
             System.out.print("Choice: ");
 
@@ -110,7 +111,8 @@ public class OwnerApp {
                 case "8" -> updateServicePrice();
                 case "9" -> deleteService();
                 case "10" -> showReservations();
-                case "11" -> TimeSimulator.newDay();
+                case "11" -> showRevenue();
+                case "12" -> TimeSimulator.newDay();
                 case "0" -> { return; }
                 default -> System.out.println("Invalid option.");
             }
@@ -136,6 +138,20 @@ public class OwnerApp {
             return -1;
         }
     }
+
+    private void showRevenue() {
+        try {
+            int salonId = chooseSalon();
+            if (salonId < 0) return;
+
+            double revenue = ownerService.getSalonRevenue(salonId);
+            System.out.println("Revenue for salon " + salonId + ": " + revenue + " PLN");
+
+        } catch (Exception e) {
+            System.out.println(e.getMessage());
+        }
+    }
+
 
     private void showSalons() {
         try {

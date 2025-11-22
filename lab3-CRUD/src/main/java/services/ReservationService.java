@@ -7,6 +7,10 @@ import dao.ServiceDao;
 import data.models.Reservation;
 import data.models.Service;
 import enums.ReservationStatus;
+import utils.DatabaseConnection;
+
+import java.sql.Connection;
+import java.sql.PreparedStatement;
 import java.util.List;
 import java.util.Optional;
 
@@ -108,10 +112,30 @@ public class ReservationService {
     public void payReservation(int reservationId) {
         Reservation reservation = reservationDao.getById(reservationId)
                 .orElseThrow(() -> new IllegalArgumentException("Reservation not found"));
+
         if (reservation.getStatus() != ReservationStatus.ENDED) {
             throw new IllegalStateException("Reservation cannot be paid");
         }
+
         reservationDao.markAsPaid(reservationId);
+
+        double price = serviceDao.getById((int) reservation.getServiceId())
+                .map(service -> service.getPrice())
+                .orElseThrow(() -> new IllegalStateException("Service not found"));
+
+        try (Connection conn = DatabaseConnection.getConnection();
+             PreparedStatement stmt = conn.prepareStatement(
+                     "INSERT INTO payments (reservation_id, salon_id, amount, timestamp) VALUES (?, ?, ?, datetime('now'))"
+             )) {
+
+            stmt.setInt(1, reservationId);
+            stmt.setInt(2, reservation.getSalonId());
+            stmt.setDouble(3, price);
+            stmt.executeUpdate();
+
+        } catch (Exception e) {
+            throw new RuntimeException("Failed to save payment record", e);
+        }
     }
 
     public void cancelReservation(int reservationId) {
