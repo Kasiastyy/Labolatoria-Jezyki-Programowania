@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.TextArea?>
+<?import javafx.scene.layout.BorderPane?>
+<?import javafx.scene.layout.GridPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.VBox?>
+
+<BorderPane xmlns="http://javafx.com/javafx/21"
+            xmlns:fx="http://javafx.com/fxml/1"
+            fx:controller="ui.controller.MainController">
+
+    <center>
+        <GridPane fx:id="boardGrid"
+                  style="-fx-background-color: white;"
+                  GridPane.hgrow="ALWAYS"
+                  GridPane.vgrow="ALWAYS"/>
+    </center>
+
+    <right>
+        <VBox spacing="10">
+            <padding>
+                <Insets top="10" right="10" bottom="10" left="10"/>
+            </padding>
+
+            <Label text="Statystyki" style="-fx-font-weight: bold;"/>
+
+            <Label fx:id="lblTotalFigures" text="Figury: 0"/>
+            <Label fx:id="lblSearchers" text="Szperacze: 0"/>
+            <Label fx:id="lblShooters" text="Strzelcy: 0"/>
+            <Label fx:id="lblPushers" text="Spychacze: 0"/>
+            <Label fx:id="lblTreasures" text="Skarby: 0"/>
+            <Label fx:id="lblPromotions" text="Awansów: 0"/>
+
+            <Label text="Log" style="-fx-font-weight: bold;"/>
+
+            <TextArea fx:id="logArea"
+                      prefWidth="200"
+                      prefHeight="300"
+                      wrapText="true" />
+
+            <HBox spacing="10">
+                <Button text="Start" onAction="#onStart"/>
+                <Button text="Stop" onAction="#onStop"/>
+                <Button text="Reset" onAction="#onReset"/>
+            </HBox>
+
+        </VBox>
+    </right>
+
+
+</BorderPane>
